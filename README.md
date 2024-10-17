@@ -9,7 +9,7 @@ This application utilizes the Telegram Bot API to send messages to users or grou
    - Replace `<YOUR_BOT_TOKEN>` with the token provided by BotFather.
 
 3. **Request Parameters**: When sending a message, the following parameters are included in the request body:
-   - `chat_id`: The unique identifier for the target chat or username (in the format `@username` for users).
+   - `chat_id`: The unique identifier for the target chat(Get ChatID via @username_to_id_bot).
    - `text`: The message text to be sent.
 
 4. **Response Handling**: Upon sending a message, the application receives a response from the Telegram API. If the message is sent successfully, a success status is returned. If there is an error (e.g., invalid chat ID), an error message will be returned.
