@@ -1,0 +1,38 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const axios = require('axios');
+const path = require('path'); // Import path module
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN'; // Replace with your bot token
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Serve static files from the current directory
+app.use(express.static(path.join(__dirname)));
+
+app.post('/send-message', (req, res) => {
+    const { message, chatId } = req.body;
+
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+    axios.post(url, {
+        chat_id: chatId,
+        text: message,
+    })
+    .then(response => {
+        res.json({ status: 'success', response: response.data });
+    })
+    .catch(error => {
+        // Log the error response from Telegram
+        console.error(error.response.data);
+        res.status(500).json({ status: 'error', message: error.response.data.description });
+    });
+});
+
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
