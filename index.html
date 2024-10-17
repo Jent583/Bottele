@@ -1,18 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Web App</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        function sendMessage() {
-            Telegram.WebApp.sendData("Hello from the Web App!");  // This sends data back to the bot
-        }
-    </script>
-</head>
-<body>
-    <h1>Welcome to my Telegram Web App</h1>
-    <button onclick="sendMessage()">Send Message to Bot</button>
-</body>
-</html>
+const express = require('express');
+const bodyParser = require('body-parser');
+const axios = require('axios');
+const path = require('path'); // Import path module
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+const TELEGRAM_BOT_TOKEN = '6795759377:AAG0Y1yMre8AEd0UpXZOKeeCH3xoHd2dFzs'; // Replace with your bot token
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Serve static files from the current directory
+app.use(express.static(path.join(__dirname)));
+
+app.post('/send-message', (req, res) => {
+    const { message, chatId } = req.body;
+
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+    axios.post(url, {
+        chat_id: chatId,
+        text: message,
+    })
+    .then(response => {
+        res.json({ status: 'success', response: response.data });
+    })
+    .catch(error => {
+        // Log the error response from Telegram
+        console.error(error.response.data);
+        res.status(500).json({ status: 'error', message: error.response.data.description });
+    });
+});
+
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
