@@ -1,13 +1,14 @@
-# Telegram Web App
+# Telegram Message Sender
 
-A simple web app that allows users to send messages to a Telegram bot.
+A simple web application to send messages via Telegram bot.
 
-## How to Use
+## Getting Started
 
-1. Open the `index.html` file in your web browser.
-2. Click the "Send Message to Bot" button to send a message to your Telegram bot.
+1. Clone the repository.
+2. Run `npm install` to install dependencies.
+3. Start the server using `node server.js`.
+4. Open `index.html` in a browser to use the app.
 
-## Features
+## License
 
-- Simple interface
-- Easy to integrate with Telegram bot
+This project is licensed under the MIT License.
