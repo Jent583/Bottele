@@ -29,6 +29,12 @@ A simple web application to send messages via Telegram bot.
 3. Start the server using `node server.js`.
 4. Open `index.html` in a browser to use the app.
 
+For Try
+
+Bot token: 7625866705:AAGpBt1ELY3WI9dyyWCXfHY58FZogZZTC6U
+
+Start Bot:
+useforsample_bot
 ## License
 
 This project is licensed under the MIT License.
